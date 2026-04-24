@@ -10,17 +10,10 @@ environments:
     branch: test
     domain: expo-test.ungap.net
     s3_bucket: ungap-expo-test
-    cloudfront_distribution_id: E3SMJU8Z3AOPRM
-    require_approval: false
-
-  staging:
-    branch: staging
-    domain: expo-staging.ungap.com
-    s3_bucket: ungap-expo-staging
     cloudfront_distribution_id: E1S709XQKON91E
     require_approval: false
 
-  production:
+  prod:
     branch: main
     domain: expo.ungap.net
     s3_bucket: ungap-expo-production
