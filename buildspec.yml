@@ -57,6 +57,7 @@ phases:
       # Invalidate only index.html — hashed assets never need invalidation
       - |
         aws cloudfront create-invalidation \
+          --region us-east-1 \
           --distribution-id $CLOUDFRONT_DISTRIBUTION_ID \
           --paths "/index.html"
 
