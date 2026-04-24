@@ -1,22 +1,25 @@
-# AWS CodeBuild build specification — test environment
-# Environment: test
-# Branch:      test
-# S3 bucket:   ungap-expo-test
-# CloudFront:  E1S709XQKON91E
-# Domain:      expo-test.ungap.net
-# Region:      eu-west-1
+# AWS CodeBuild build specification — shared for test and production
+# Configure one CodePipeline/CodeBuild pair per branch:
+#   test -> deploy to test environment
+#   main -> deploy to production environment
+#
+# Example environment variables for the test CodeBuild project:
+#   S3_BUCKET=ungap-expo-test
+#   CLOUDFRONT_DISTRIBUTION_ID=E1S709XQKON91E
+#   APP_DOMAIN=expo-test.ungap.net
+#   AWS_DEFAULT_REGION=eu-west-1
+#
+# Example environment variables for the production CodeBuild project:
+#   S3_BUCKET=ungap-expo-production
+#   CLOUDFRONT_DISTRIBUTION_ID=E3AIG9D21U1T68
+#   APP_DOMAIN=expo.ungap.net
+#   AWS_DEFAULT_REGION=eu-west-1
 #
 # The IAM role attached to this CodeBuild project must have:
-#   s3:PutObject, s3:DeleteObject, s3:ListBucket on arn:aws:s3:::ungap-expo-test
-#   cloudfront:CreateInvalidation on arn:aws:cloudfront::471112617922:distribution/E1S709XQKON91E
+#   s3:PutObject, s3:DeleteObject, s3:ListBucket on the target S3 bucket
+#   cloudfront:CreateInvalidation on the target CloudFront distribution
 
 version: 0.2
-
-env:
-  variables:
-    S3_BUCKET: ungap-expo-test
-    CLOUDFRONT_DISTRIBUTION_ID: E1S709XQKON91E
-    AWS_DEFAULT_REGION: eu-west-1
 
 phases:
   install:
@@ -24,6 +27,12 @@ phases:
       nodejs: 22
     commands:
       - npm ci
+
+  pre_build:
+    commands:
+      - ': "${S3_BUCKET:?S3_BUCKET must be set in the CodeBuild project}"'
+      - ': "${CLOUDFRONT_DISTRIBUTION_ID:?CLOUDFRONT_DISTRIBUTION_ID must be set in the CodeBuild project}"'
+      - ': "${AWS_DEFAULT_REGION:?AWS_DEFAULT_REGION must be set in the CodeBuild project}"'
 
   build:
     commands:
