@@ -38,13 +38,13 @@ Open on iPhone with Expo Go:
 
 ## Prompts used to create this project
 
-These are the prompts used in this session to instruct GitHub Copilot to create and publish the project (swedish):
+These are the prompts used in this session to instruct GitHub Copilot to create and publish the project (translated from Swedish):
 
 ```text
-Jag vill skapa ett Hello World-projekt med Expo Go. Hjälp mig från början till slut: sätta upp projektet, skriva kod för ett GUI som visar texten Hello World, lokal deploy och till sist köra den i en emulator/webbläsare. Visa dom planerade stegen innan du börjar exekvera
+I want to create a Hello World project with Expo Go. Help me from start to finish: set up the project, write code for a GUI that displays the text Hello World, deploy it locally, and finally run it in an emulator/browser. Show the planned steps before you start executing.
 ```
 
 ```text
-Vi behöver inte testa för OSX eller Android just nu. Jag vill att du startar en lokal server för expo så att jag komma åt Hello World från min Iphone som har Expo Go installerad.
+We do not need to test for macOS or Android right now. I want you to start a local Expo server so that I can access Hello World from my iPhone, which has Expo Go installed.
 ```
 
