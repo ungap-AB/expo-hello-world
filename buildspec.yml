@@ -2,20 +2,20 @@
 # Environment: test
 # Branch:      test
 # S3 bucket:   ungap-expo-test
-# CloudFront:  E3SMJU8Z3AOPRM
+# CloudFront:  E1S709XQKON91E
 # Domain:      expo-test.ungap.net
 # Region:      eu-west-1
 #
 # The IAM role attached to this CodeBuild project must have:
 #   s3:PutObject, s3:DeleteObject, s3:ListBucket on arn:aws:s3:::ungap-expo-test
-#   cloudfront:CreateInvalidation on arn:aws:cloudfront::ACCOUNT_ID:distribution/E3SMJU8Z3AOPRM
+#   cloudfront:CreateInvalidation on arn:aws:cloudfront::ACCOUNT_ID:distribution/E1S709XQKON91E
 
 version: 0.2
 
 env:
   variables:
     S3_BUCKET: ungap-expo-test
-    CLOUDFRONT_DISTRIBUTION_ID: E3SMJU8Z3AOPRM
+    CLOUDFRONT_DISTRIBUTION_ID: E1S709XQKON91E
     AWS_DEFAULT_REGION: eu-west-1
 
 phases:
