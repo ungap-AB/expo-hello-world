@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>BRANCH TEST</Text>
+      <Text style={styles.title}>TEST 3</Text>
       <Text style={styles.subtitle}>by ungap</Text>
       <StatusBar style="dark" />
     </View>
