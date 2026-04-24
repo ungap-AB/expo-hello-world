@@ -5,7 +5,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Hello World</Text>
-      <Text style={styles.subtitle}>Expo Go app running locally</Text>
+      <Text style={styles.subtitle}>by ungap</Text>
       <StatusBar style="dark" />
     </View>
   );
