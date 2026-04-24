@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Testing the workflow</Text>
+      <Text style={styles.title}>One last test</Text>
       <Text style={styles.subtitle}>by ungap</Text>
       <StatusBar style="dark" />
     </View>
