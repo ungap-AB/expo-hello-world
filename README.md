@@ -36,15 +36,70 @@ Open on iPhone with Expo Go:
 2. Start the app with `npm start -- --lan`.
 3. Scan the QR code from the terminal in Expo Go.
 
-## Prompts used to create this project
+# CodeBuild IAM Policy – Setup Guide
 
-These are the prompts used in this session to instruct GitHub Copilot to create and publish the project (translated from Swedish):
+This document describes how to configure IAM permissions for AWS CodeBuild projects used in TrimCoach deployments.
 
-```text
-I want to create a Hello World project with Expo Go. Help me from start to finish: set up the project, write code for a GUI that displays the text Hello World, deploy it locally, and finally run it in an emulator/browser. Show the planned steps before you start executing.
-```
+Each environment (`test`, `staging`, `production`) must have its own policy with environment-specific values.
 
-```text
-We do not need to test for macOS or Android right now. I want you to start a local Expo server so that I can access Hello World from my iPhone, which has Expo Go installed.
-```
+## Overview
+
+The CodeBuild service role must be allowed to:
+- Read and write objects in the environment S3 bucket
+- List the S3 bucket
+- Create CloudFront invalidations for the environment distribution
+
+## Setup Steps
+
+1. Identify the environment (e.g. `test`, `staging`, `production`)
+
+2. Determine required values:
+   - **S3 bucket name** (example: `ungap-expo-test`)
+   - **AWS account ID** (example: `471112617922`)
+   - **CloudFront distribution ID** (example: `E1S709XQKON91E`)
+
+3. Replace the placeholders in the policy below:
+   - `<BUCKET_NAME>`
+   - `<AWS_ACCOUNT_ID>`
+   - `<CLOUDFRONT_DISTRIBUTION_ID>`
+
+4. Attach the policy to the CodeBuild service role
+
+## IAM Policy Template
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "S3DeployToEnvironmentBucket",
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucket"
+      ],
+      "Resource": "arn:aws:s3:::<BUCKET_NAME>"
+    },
+    {
+      "Sid": "S3ObjectDeployToEnvironmentBucket",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:DeleteObject",
+        "s3:PutObjectTagging",
+        "s3:PutObjectAcl"
+      ],
+      "Resource": "arn:aws:s3:::<BUCKET_NAME>/*"
+    },
+    {
+      "Sid": "CloudFrontInvalidation",
+      "Effect": "Allow",
+      "Action": [
+        "cloudfront:CreateInvalidation"
+      ],
+      "Resource": "arn:aws:cloudfront::<AWS_ACCOUNT_ID>:distribution/<CLOUDFRONT_DISTRIBUTION_ID>"
+    }
+  ]
+}
+
 
